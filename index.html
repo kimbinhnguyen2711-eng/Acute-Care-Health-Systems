@@ -40,7 +40,13 @@ document.getElementById('submit').addEventListener('click',()=>{
  const caption=tied.length>=2?'Tied lowest dimensions':'Two lowest dimensions';document.getElementById('lowest').textContent=caption+': '+lowest.map(x=>dimensions[x.index]).join('; ')+'.';
  const profileIndex=selectProfile(scores),box=document.getElementById('recommendation');box.replaceChildren();
  if(profileIndex>=0){const p=profiles[profileIndex];box.style.display='block';box.append(el('h3','',p.name),el('p','',p.meaning),el('p','',`Recommended next action: ${p.action}`))}
- else{box.style.display='none'}
+ else{
+  box.style.display='block';
+  box.append(
+    el('h3','','Suggested next step'),
+    el('p','','This score pattern does not match one of the five named profiles. Review the lowest-scoring dimensions together.'),
+    el('p','',`Start by gathering evidence for ${dimensions[lowest[0].index]} and setting one measurable improvement target.`)
+  );}
  const results=document.getElementById('results');results.style.display='block';
  if(chart)chart.destroy();
  if(typeof Chart==='undefined'){box.append(el('p','error','Chart.js did not load. Connect to the internet and refresh to display the radar chart.'))}
